@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  lint:
+    desc: Run linters
+    cmds:
+      - echo lint
+
+  test:
+    desc: Run tests
+    cmds:
+      - echo test
