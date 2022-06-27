@@ -1,0 +1,1306 @@
+openapi: 3.0.0
+x-stoplight:
+  id: 0ab7655b1c428
+info:
+  version: 1.0.0
+  title: launch-api
+  description: TODO
+  contact:
+    name: Egor Danko
+    email: qwertyone@gmail.com
+servers:
+  - url: 'http://{hostname}:3000/v1'
+    variables:
+      hostname:
+        default: localhost
+tags:
+  - name: kind
+    description: TODO
+  - name: order
+    description: TODO
+  - name: applicant
+    description: TODO
+  - name: user
+    description: TODO
+  - name: launch
+    description: TODO
+paths:
+  /kinds:
+    get:
+      summary: List Kinds
+      operationId: listKinds
+      responses:
+        '200':
+          $ref: '#/components/responses/ListKindsResponse'
+      description: Retrieves a list of kinds.
+      tags:
+        - kind
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: cursor
+        - schema:
+            type: integer
+            default: 20
+          in: query
+          name: limit
+        - schema:
+            type: string
+            enum:
+              - published
+              - draft
+            default: published
+          in: query
+          name: status
+    post:
+      summary: Create New Kind
+      operationId: createKind
+      responses:
+        '204':
+          description: Kind Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kind'
+              examples: {}
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Kind with this name already exists
+      description: Create a new kind.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateKindRequest'
+      tags:
+        - kind
+  '/kinds/{id}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing kind
+    get:
+      summary: Get Kind by ID
+      tags:
+        - kind
+      responses:
+        '200':
+          $ref: '#/components/responses/GetKindResponse'
+        '404':
+          description: Kind Not Found
+      operationId: getKind
+      description: Retrieve the information of the kind with the matching kind ID.
+    delete:
+      summary: Delete Kind by ID
+      operationId: deleteKind
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Kind Not Found
+      description: Deletes existing kind.
+      tags:
+        - kind
+  '/kinds/{id}/changeName':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing kind
+    post:
+      summary: Change Kind Name
+      operationId: changeKindName
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeKindName'
+      tags:
+        - kind
+      description: Change existing kind name.
+  '/kinds/{id}/changeDescription':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing kind
+    post:
+      summary: Change Kind Description
+      operationId: changeKindDescription
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeKindDescription'
+      tags:
+        - kind
+      description: Change existing kind description.
+  '/kinds/{id}/makePublished':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing kind
+    post:
+      summary: Make Kind Published
+      operationId: makeKindPublished
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - kind
+      description: Change status of an existing kind to published.
+  '/kinds/{id}/makeDraft':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing kind
+    post:
+      summary: Make Kind Draft
+      operationId: makeKindDraft
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - kind
+      description: Change status of an existing kind to draft.
+  /orders:
+    get:
+      summary: List Orders
+      operationId: listOrders
+      responses:
+        '200':
+          $ref: '#/components/responses/ListOrdersResponse'
+      description: Retrieves a list of orders.
+      tags:
+        - order
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: cursor
+        - schema:
+            type: integer
+            default: 20
+          in: query
+          name: limit
+        - schema:
+            type: string
+            enum:
+              - published
+              - draft
+            default: published
+          in: query
+          name: status
+    post:
+      summary: Create New Order
+      operationId: createOrder
+      responses:
+        '204':
+          description: Order Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              examples: {}
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Order with this name already exists
+      description: Create a new order.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateOrderRequest'
+      tags:
+        - order
+  '/orders/{id}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing order
+    get:
+      summary: Get Order by ID
+      tags:
+        - order
+      responses:
+        '200':
+          $ref: '#/components/responses/GetOrderResponse'
+        '404':
+          description: Order Not Found
+      operationId: getOrder
+      description: Retrieve the information of the order with the matching order ID.
+    delete:
+      summary: Delete Order by ID
+      operationId: deleteOrder
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Order Not Found
+      description: Deletes existing order.
+      tags:
+        - order
+  '/orders/{id}/changeName':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing order
+    post:
+      summary: Change Order Name
+      operationId: changeOrderName
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeOrderName'
+      tags:
+        - order
+      description: Change existing order name.
+  '/orders/{id}/changeDescription':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing order
+    post:
+      summary: Change Order Description
+      operationId: changeOrderDescription
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeOrderDescription'
+      tags:
+        - order
+      description: Change existing order description.
+  '/orders/{id}/makePublished':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing order
+    post:
+      summary: Make Order Published
+      operationId: makeOrderPublished
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - order
+      description: Change status of an existing order to published.
+  '/orders/{id}/makeDraft':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing order
+    post:
+      summary: Make Order Draft
+      operationId: makeOrderDraft
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - order
+      description: Change status of an existing order to draft.
+  /applicants:
+    get:
+      summary: List Applicants
+      operationId: listApplicants
+      responses:
+        '200':
+          $ref: '#/components/responses/ListApplicantsResponse'
+      description: Retrieves a list of applicants.
+      tags:
+        - applicant
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: cursor
+        - schema:
+            type: integer
+            default: 20
+          in: query
+          name: limit
+        - schema:
+            type: string
+            enum:
+              - published
+              - draft
+            default: published
+          in: query
+          name: status
+    post:
+      summary: Create New Applicant
+      operationId: createApplicant
+      responses:
+        '204':
+          description: Applicant Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Applicant'
+              examples: {}
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Applicant with this name already exists
+      description: Create a new applicant.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateApplicantRequest'
+      tags:
+        - applicant
+  '/applicants/{id}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing applicant
+    get:
+      summary: Get Applicant by ID
+      tags:
+        - applicant
+      responses:
+        '200':
+          $ref: '#/components/responses/GetApplicantResponse'
+        '404':
+          description: Applicant Not Found
+      operationId: getApplicant
+      description: Retrieve the information of the applicant with the matching applicant ID.
+    delete:
+      summary: Delete Applicant by ID
+      operationId: deleteApplicant
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Applicant Not Found
+      description: Deletes existing applicant.
+      tags:
+        - applicant
+  '/applicants/{id}/changeName':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing applicant
+    post:
+      summary: Change Applicant Name
+      operationId: changeApplicantName
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeApplicantName'
+      tags:
+        - applicant
+      description: Change existing applicant name.
+  '/applicants/{id}/changeDescription':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing applicant
+    post:
+      summary: Change Applicant Description
+      operationId: changeApplicantDescription
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeApplicantDescription'
+      tags:
+        - applicant
+      description: Change existing applicant description.
+  '/applicants/{id}/makePublished':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing applicant
+    post:
+      summary: Make Applicant Published
+      operationId: makeApplicantPublished
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - applicant
+      description: Change status of an existing applicant to published.
+  '/applicants/{id}/makeDraft':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing applicant
+    post:
+      summary: Make Applicant Draft
+      operationId: makeApplicantDraft
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - applicant
+      description: Change status of an existing applicant to draft.
+  /users:
+    get:
+      summary: List Users
+      operationId: listUsers
+      responses:
+        '200':
+          $ref: '#/components/responses/ListUsersResponse'
+      description: Retrieves a list of users.
+      tags:
+        - user
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: cursor
+        - schema:
+            type: integer
+            default: 20
+          in: query
+          name: limit
+        - schema:
+            type: string
+            enum:
+              - published
+              - draft
+            default: published
+          in: query
+          name: status
+    post:
+      summary: Create New User
+      operationId: createUser
+      responses:
+        '204':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples: {}
+        '400':
+          description: Missing Required Information
+        '409':
+          description: User with this name already exists
+      description: Create a new user.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateUserRequest'
+      tags:
+        - user
+  '/users/{id}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing user
+    get:
+      summary: Get User by ID
+      tags:
+        - user
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUserResponse'
+        '404':
+          description: User Not Found
+      operationId: getUser
+      description: Retrieve the information of the user with the matching user ID.
+    delete:
+      summary: Delete User by ID
+      operationId: deleteUser
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: User Not Found
+      description: Deletes existing user.
+      tags:
+        - user
+  '/users/{id}/changeName':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing user
+    post:
+      summary: Change User Name
+      operationId: changeUserName
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeUserName'
+      tags:
+        - user
+      description: Change existing user name.
+  '/users/{id}/changeDescription':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing user
+    post:
+      summary: Change User Description
+      operationId: changeUserDescription
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeUserDescription'
+      tags:
+        - user
+      description: Change existing user description.
+  '/users/{id}/makePublished':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing user
+    post:
+      summary: Make User Published
+      operationId: makeUserPublished
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - user
+      description: Change status of an existing user to published.
+  '/users/{id}/makeDraft':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing user
+    post:
+      summary: Make User Draft
+      operationId: makeUserDraft
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - user
+      description: Change status of an existing user to draft.
+  /launches:
+    get:
+      summary: List Launches
+      operationId: listLaunches
+      responses:
+        '200':
+          $ref: '#/components/responses/ListLaunchesResponse'
+      description: Retrieves a list of launches.
+      tags:
+        - launch
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: cursor
+        - schema:
+            type: integer
+            default: 20
+          in: query
+          name: limit
+        - schema:
+            type: string
+            enum:
+              - published
+              - draft
+            default: published
+          in: query
+          name: status
+    post:
+      summary: Create New Launch
+      operationId: createLaunch
+      responses:
+        '204':
+          description: Launch Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Launch'
+              examples: {}
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Launch with this name already exists
+      description: Create a new launch.
+      requestBody:
+        $ref: '#/components/requestBodies/CreateLaunchRequest'
+      tags:
+        - launch
+  '/launches/{id}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing launch
+    get:
+      summary: Get Launch by ID
+      tags:
+        - launch
+      responses:
+        '200':
+          $ref: '#/components/responses/GetLaunchResponse'
+        '404':
+          description: Launch Not Found
+      operationId: getLaunch
+      description: Retrieve the information of the launch with the matching launch ID.
+    delete:
+      summary: Delete Launch by ID
+      operationId: deleteLaunch
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Launch Not Found
+      description: Deletes existing launch.
+      tags:
+        - launch
+  '/launches/{id}/changeName':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing launch
+    post:
+      summary: Change Launch Name
+      operationId: changeLaunchName
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeLaunchName'
+      tags:
+        - launch
+      description: Change existing launch name.
+  '/launches/{id}/changeDescription':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing launch
+    post:
+      summary: Change Launch Description
+      operationId: changeLaunchDescription
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/ChangeLaunchDescription'
+      tags:
+        - launch
+      description: Change existing launch description.
+  '/launches/{id}/makePublished':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing launch
+    post:
+      summary: Make Launch Published
+      operationId: makeLaunchPublished
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - launch
+      description: Change status of an existing launch to published.
+  '/launches/{id}/makeDraft':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Id of an existing launch
+    post:
+      summary: Make Launch Draft
+      operationId: makeLaunchDraft
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - launch
+      description: Change status of an existing launch to draft.
+components:
+  schemas:
+    Kind:
+      title: Kind
+      type: object
+      description: Kind model.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the given kind.
+          format: uuid
+        name:
+          type: string
+          description: Unique name for the given kind.
+        description:
+          type: string
+          description: Description for the given kind.
+        status:
+          type: string
+          enum:
+            - published
+            - draft
+      required:
+        - id
+        - name
+        - status
+    Order:
+      title: Order
+      type: object
+      description: Order model.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the given order.
+          format: uuid
+        name:
+          type: string
+          description: Unique name for the given order.
+        description:
+          type: string
+          description: Description for the given order.
+        status:
+          type: string
+          enum:
+            - published
+            - draft
+      required:
+        - id
+        - name
+        - status
+    User:
+      title: User
+      type: object
+      description: User model.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the given user.
+          format: uuid
+        name:
+          type: string
+          description: Unique name for the given user.
+        description:
+          type: string
+          description: Description for the given user.
+        status:
+          type: string
+          enum:
+            - published
+            - draft
+      required:
+        - id
+        - name
+        - status
+    Applicant:
+      title: Applicant
+      type: object
+      description: Applicant model.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the given applicant.
+          format: uuid
+        name:
+          type: string
+          description: Unique name for the given applicant.
+        description:
+          type: string
+          description: Description for the given applicant.
+        status:
+          type: string
+          enum:
+            - published
+            - draft
+      required:
+        - id
+        - name
+        - status
+    Launch:
+      title: Launch
+      type: object
+      description: Launch model.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the given launch.
+          format: uuid
+        name:
+          type: string
+          description: Unique name for the given launch.
+        description:
+          type: string
+          description: Description for the given launch.
+        status:
+          type: string
+          enum:
+            - published
+            - draft
+      required:
+        - id
+        - name
+        - status
+  responses:
+    GetKindResponse:
+      description: Get Kind Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Kind'
+          examples:
+            Got Draft Kind:
+              value:
+                id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                name: kindName
+                description: some description
+                status: draft
+    ListKindsResponse:
+      description: Paginated Kinds Response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              kinds:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Kind'
+              nextCursor:
+                type: string
+            required:
+              - kinds
+              - nextCursor
+    GetOrderResponse:
+      description: Get Order Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Order'
+          examples:
+            Got Draft Order:
+              value:
+                id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                name: orderName
+                description: some description
+                status: draft
+    ListOrdersResponse:
+      description: Paginated Orders Response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              orders:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+              nextCursor:
+                type: string
+            required:
+              - orders
+              - nextCursor
+    GetApplicantResponse:
+      description: Get Applicant Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Applicant'
+          examples:
+            Got Draft Applicant:
+              value:
+                id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                name: applicantName
+                description: some description
+                status: draft
+    ListApplicantsResponse:
+      description: Paginated Applicants Response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              applicants:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Applicant'
+              nextCursor:
+                type: string
+            required:
+              - applicants
+              - nextCursor
+    GetUserResponse:
+      description: Get User Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+          examples:
+            Got Draft User:
+              value:
+                id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                name: userName
+                description: some description
+                status: draft
+    ListUsersResponse:
+      description: Paginated Users Response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              users:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              nextCursor:
+                type: string
+            required:
+              - users
+              - nextCursor
+    GetLaunchResponse:
+      description: Get Launch Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Launch'
+          examples:
+            Got Draft Launch:
+              value:
+                id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                name: launchName
+                description: some description
+                status: draft
+    ListLaunchesResponse:
+      description: Paginated Launches Response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              launchs:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Launch'
+              nextCursor:
+                type: string
+            required:
+              - launches
+              - nextCursor
+  requestBodies:
+    CreateKindRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              status:
+                type: string
+            required:
+              - name
+              - status
+          examples:
+            Create Published Kind:
+              value:
+                name: kindName
+                description: some description
+                status: published
+            Create Draft Kind:
+              value:
+                name: kindName
+                description: some description
+                status: draft
+      description: Create Kind Request
+    ChangeKindName:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+              - name
+    ChangeKindDescription:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+            required:
+              - description
+    CreateOrderRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              status:
+                type: string
+            required:
+              - name
+              - status
+          examples:
+            Create Published Order:
+              value:
+                name: orderName
+                description: some description
+                status: published
+            Create Draft Order:
+              value:
+                name: orderName
+                description: some description
+                status: draft
+      description: Create Order Request
+    ChangeOrderName:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+              - name
+    ChangeOrderDescription:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+            required:
+              - description
+    CreateApplicantRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              status:
+                type: string
+            required:
+              - name
+              - status
+          examples:
+            Create Published Applicant:
+              value:
+                name: applicantName
+                description: some description
+                status: published
+            Create Draft Applicant:
+              value:
+                name: applicantName
+                description: some description
+                status: draft
+      description: Create Applicant Request
+    ChangeApplicantName:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+              - name
+    ChangeApplicantDescription:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+            required:
+              - description
+    CreateUserRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              status:
+                type: string
+            required:
+              - name
+              - status
+          examples:
+            Create Published User:
+              value:
+                name: userName
+                description: some description
+                status: published
+            Create Draft User:
+              value:
+                name: userName
+                description: some description
+                status: draft
+      description: Create User Request
+    ChangeUserName:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+              - name
+    ChangeUserDescription:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+            required:
+              - description
+    CreateLaunchRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              status:
+                type: string
+            required:
+              - name
+              - status
+          examples:
+            Create Published Launch:
+              value:
+                name: launchName
+                description: some description
+                status: published
+            Create Draft Launch:
+              value:
+                name: launchName
+                description: some description
+                status: draft
+      description: Create Launch Request
+    ChangeLaunchName:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+              - name
+    ChangeLaunchDescription:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+            required:
+              - description
