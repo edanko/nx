@@ -42,7 +42,8 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: Examples
-        run: |
-          task lint
-          task test
+      - name: Run lint
+        run: task lint
+
+      - name: Run test
+        run: task test
