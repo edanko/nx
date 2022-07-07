@@ -1,0 +1,48 @@
+version: '3'
+
+tasks:
+  run:
+    desc: Run moses-api
+    dir: ./cmd/moses-api
+    cmds:
+      - go run .
+
+  build:
+    desc: Build moses-api
+    cmds:
+      - go build -o moses-api.exe ./cmd/moses-api
+
+  lint:
+    desc: Run linters
+    cmds:
+      - go vet ./...
+      - golangci-lint run
+
+  generate:
+    desc: Generate Go code
+    cmds:
+      - go generate ./cmd/moses-api/internal/adapters/ent
+
+  test:
+    desc: Go test
+    cmds:
+      - go test ./...
+
+  bench:
+    desc: Run go benchmarks
+    cmds:
+      - go test ./... -bench=. -run="Benchmark*"
+
+  format:
+    desc: Run source files with golines and goimports
+    cmds:
+      - buf format -w
+      - for f in $(find . -name *.go -print); do golines --base-formatter="goimports -local $(go list -m)" -w $f; done
+
+  cover:
+    desc: Go code coverage
+    cmds:
+      - go test ./... -coverprofile=coverage.out
+      - go tool cover -func=coverage.out | grep ^total
+      # - go tool cover -html=coverage.out
+      - rm -f coverage.out

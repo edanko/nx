@@ -2,23 +2,27 @@ version: '3'
 
 includes:
   launch: ./cmd/launch-api
+  moses: ./cmd/moses-api
 
 tasks:
   lint:
     desc: Run linters
     cmds:
       - task: launch:lint
+      - task: moses:lint
       - buf lint
 
   test:
     desc: Run tests
     cmds:
       - task: launch:test
+      - task: moses:test
 
   generate:
     desc: Generate Go code
     cmds:
       - task: launch:generate
+      - task: moses:generate
       - buf generate
       - oapi-codegen -old-config-style -generate types -o "cmd/launch-api/internal/ports/openapi_types.gen.go" -package "ports" "api/openapi/v1/launch.yaml"
       - oapi-codegen -old-config-style -generate chi-server -o "cmd/launch-api/internal/ports/openapi_api.gen.go" -package "ports" "api/openapi/v1/launch.yaml"

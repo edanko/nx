@@ -1,0 +1,187 @@
+12000
+
+724
+9078
+bvf angle=0 r=45 h=50 b=50
+ba angle=0
+
+843
+2586
+bl r=50 angle=0
+bl r=50 angle=0
+.
+12000
+
+722
+9078
+ba angle=0
+bvf angle=0 r=45 h=50 b=50
+
+827
+2586
+bl r=50 angle=0
+bl r=50 angle=0
+.
+12000
+
+813
+7379
+ba angle=0
+bl r=50 angle=0
+
+717
+3785
+bl r=50 angle=0
+bw r=50 angle=0 bulb=35
+
+692
+690
+bk h=10 angle=0
+br h=10 angle=0 bulb=35
+.
+12000
+
+812
+7379
+ba angle=0
+bl r=50 angle=0
+
+904
+2179
+bl r=45 angle=0
+ba angle=0
+
+648
+1684
+bl r=50 angle=0
+bvf angle=0 r=45 h=50 b=50
+
+690
+440
+br h=10 angle=0 bulb=35
+bk h=10 angle=0
+.
+12000
+
+811
+7379
+ba angle=0
+bl r=50 angle=0
+
+677
+1684
+bvf angle=0 r=45 h=50 b=50
+bl r=50 angle=0
+
+821
+1388
+bw r=50 angle=0 bulb=35
+bl r=50 angle=0
+
+711
+690
+br h=10 angle=0 bulb=35
+bk h=10 angle=0
+
+693
+690
+bk h=10 angle=0
+br h=10 angle=0 bulb=35
+.
+12000
+
+820
+7379
+bl r=50 angle=0
+ba angle=0
+
+706
+690
+bk h=10 angle=0
+br h=10 angle=0 bulb=35
+
+694
+690
+br h=10 angle=0 bulb=35
+bk h=10 angle=0
+
+713
+690
+br h=10 angle=0 bulb=35
+bk h=10 angle=0
+
+889
+688
+bl r=50 angle=0
+bl r=50 angle=0
+
+709
+688
+bl r=50 angle=0
+bl r=50 angle=0
+
+710
+688
+bl r=50 angle=0
+bl r=50 angle=0
+.
+12000
+
+740
+7379
+bl r=50 angle=0
+ba angle=0
+
+718
+688
+bl r=50 angle=0
+bl r=50 angle=0
+
+888
+688
+bl r=50 angle=0
+bl r=50 angle=0
+
+876
+688
+bl r=45 angle=0
+bl r=45 angle=0
+
+716
+688
+bl r=50 angle=0
+bl r=50 angle=0
+
+856
+688
+bl r=45 angle=0
+bl r=45 angle=0
+
+712
+440
+bk h=10 angle=0
+br h=10 angle=0 bulb=35
+
+695
+440
+bk h=10 angle=0
+br h=10 angle=0 bulb=35
+.
+12000
+
+818
+7379
+ba angle=0
+bl r=50 angle=0
+
+700
+440
+br h=10 angle=0 bulb=35
+bk h=10 angle=0
+.
+12000
+
+815
+7379
+bl r=50 angle=0
+ba angle=0
