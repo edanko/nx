@@ -1,0 +1,16 @@
+12000
+
+301-295
+676
+bl angle=0 r=35
+bl angle=-7 r=35
+
+302-287
+690
+bl angle=-12 r=40
+bl angle=0 r=35
+
+302-285
+690
+blg angle=-12 r=35
+bl angle=0 r=35

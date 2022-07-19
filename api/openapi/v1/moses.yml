@@ -1,0 +1,180 @@
+openapi: 3.0.0
+x-stoplight:
+  id: 7057589c56bbf
+info:
+  version: 1.0.0
+  title: moses
+  description: TODO
+  contact:
+    name: Egor Danko
+    email: qwertyone@gmail.com
+servers:
+  - url: 'http://{hostname}:3000/v1'
+    variables:
+      hostname:
+        default: localhost
+tags:
+  - name: nest
+    description: TODO
+  - name: part
+    description: TODO
+components:
+  parameters:
+    nestId:
+      name: nestId
+      in: path
+      required: true
+      schema:
+        type: string
+    partId:
+      name: partId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Nest:
+      title: Nest
+      x-stoplight:
+        id: unxxvfjsw9dyd
+      type: object
+      properties:
+        id:
+          type: string
+      description: TODO
+    Part:
+      title: Part
+      x-stoplight:
+        id: g9f4tkffej3qu
+      type: object
+      properties:
+        id:
+          type: string
+      description: TODO
+  responses:
+    ListNestsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Nest'
+    ListPartsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Part'
+    GetNestResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Nest'
+    GetPartResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Part'
+  requestBodies:
+    CreateNestRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+      description: TODO
+    CreatePartRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+      description: TODO
+paths:
+  /nests:
+    get:
+      summary: List Nests
+      tags:
+        - nest
+      responses:
+        '200':
+          $ref: '#/components/responses/ListNestsResponse'
+      operationId: listNests
+      description: TODO
+    post:
+      summary: Create Nest
+      operationId: createNest
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        $ref: '#/components/requestBodies/CreateNestRequest'
+      description: TODO
+      tags:
+        - nest
+  '/nests/{nestId}':
+    parameters:
+      - $ref: '#/components/parameters/nestId'
+    get:
+      summary: Get Nest By Id
+      tags:
+        - nest
+      responses:
+        '200':
+          $ref: '#/components/responses/GetNestResponse'
+      operationId: getNestById
+      description: TODO
+    delete:
+      summary: Delete Nest
+      operationId: deleteNest
+      responses:
+        '204':
+          description: No Content
+      description: TODO
+      tags:
+        - nest
+  /parts:
+    get:
+      summary: List Parts
+      tags:
+        - part
+      responses:
+        '200':
+          $ref: '#/components/responses/ListPartsResponse'
+      operationId: listParts
+      description: TODO
+    post:
+      summary: Create Part
+      operationId: createPart
+      responses:
+        '204':
+          description: No Content
+      description: TODO
+      tags:
+        - part
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePartRequest'
+  '/parts/{partId}':
+    parameters:
+      - $ref: '#/components/parameters/partId'
+    get:
+      summary: Get Part By Id
+      tags:
+        - part
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPartResponse'
+      operationId: getPartById
+      description: TODO
+    delete:
+      summary: Delete Part
+      operationId: deletePart
+      responses:
+        '204':
+          description: No Content
+      description: TODO
+      tags:
+        - part
